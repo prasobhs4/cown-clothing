@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import sections from './sections.js'
+import sections from '../../Json/HOME-Sections.js'
 import MenuItem from '../menuitem/MenuItem.jsx';
 import './directory.css'
 
@@ -12,7 +12,7 @@ class Directory extends Component {
 
    
     render() {
-        console.log(this.state.sections);
+      
         return (
             <div className='directory-menu'>
                {this.state.sections.map

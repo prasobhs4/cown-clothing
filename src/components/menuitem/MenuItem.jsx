@@ -1,7 +1,7 @@
 import React from 'react'
 import './menuitem.scss';
 
-const MenuItem = ({imageUrl ,id ,title,size='normal'}) => {
+const MenuItem = ({imageUrl ,title,size='normal'}) => {
 
 
     return (
