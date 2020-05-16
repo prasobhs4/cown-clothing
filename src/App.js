@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from './pages/HomePage/HomePage'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Shop from './pages/ShopPage/Shop';
+import Header from './components/Header/Header'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+       <Header />
         <Switch>
           <Route exact path="/" component={HomePage}/>
           <Route exact path="/shop" component={Shop}/>
