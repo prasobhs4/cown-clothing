@@ -6,42 +6,38 @@ import Shop from './pages/ShopPage/Shop';
 import Header from './components/Header/Header'
 import SignInOut from './pages/SignIn-SignOut/SignIn-out';
 import { auth,createUserProfileDocument } from './firebase/Firebase.util';
+import {connect} from 'react-redux';
+import {setCurrentUser} from './components/Redux/User/userAction'
 
 class App extends Component{
-  constructor(){
-    super()
-    this.state={
-      currentUser:null
-    }
-  }
+  
+
+unsubscribeFromAuth = null; 
 
  componentDidMount(){
+ const {setCurrentUser} = this.props;
+
   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
     if(userAuth){
       const userRef = await createUserProfileDocument(userAuth);
       userRef.onSnapshot(snapShot => {
-        this.setState(
-          {
-            currentUser:{
-              id:snapShot.id,
-              ...snapShot.data()
-            }
-          },
-          ()=>{
-            console.log(this.state)
-          }
-        )
+       setCurrentUser({
+         id:snapShot.id,
+         ...snapShot.data(),
+       })
       })
 
     }
     else{
-      this.setState({currentUser:userAuth})
+      setCurrentUser(userAuth)
     }
     
       // this.setState({currentUser:user})
    })
  } 
-
+componentWillUnmount(){
+  this.unsubscribeFromAuth();
+}
  pageNotfound = () => {
     return (
     
@@ -53,7 +49,7 @@ class App extends Component{
   return (
     <div className="App">
       <Router>
-       <Header currentUser={this.state.currentUser}/>
+       <Header/>
         <Switch>
           <Route exact path="/" component={HomePage}/>
           <Route exact path="/signin" component={SignInOut}/>
@@ -66,4 +62,9 @@ class App extends Component{
   }
 }
 
-export default App;
+const mapDispathToProps = (dispatch) => ({
+  setCurrentUser:(user)=>dispatch(setCurrentUser(user))
+
+})
+
+export default connect(null,mapDispathToProps)(App);

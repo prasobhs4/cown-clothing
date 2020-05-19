@@ -3,7 +3,8 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const config = {
+  const config = 
+  {
     apiKey: "AIzaSyC1Ogcu9p6txdnvLQorjlHn7UA7OPKquuY",
     authDomain: "cwn-db-dcd63.firebaseapp.com",
     databaseURL: "https://cwn-db-dcd63.firebaseio.com",
@@ -46,14 +47,14 @@ const config = {
 
   firebase.initializeApp(config);
 
-  export const auth= firebase.auth();
-  export const firestore = firebase.firestore();
-
+ export const auth= firebase.auth();
+ export const firestore = firebase.firestore();
 
  const provider = new firebase.auth.GoogleAuthProvider();
  provider.setCustomParameters({prompt:'select_account'});
  
  export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
 
 export default firebase;
 
