@@ -10,6 +10,7 @@ import CartDropDown from '../Cartlist/CartDropDown';
 const Header = (props) => {
   console.log(props)
   const {currentUser,hidden} = props;
+
   
     return (
         <div className='header'>
@@ -20,7 +21,13 @@ const Header = (props) => {
             </Link>
             
             {currentUser ?
-            (<h4>{`Welcome ! ${currentUser.displayName}`}</h4>):null}
+            (
+              <div className='profile'>
+                {currentUser.photoURL?
+                 <img src={currentUser.photoURL} alt="ProfilePic" width="30" height="30"/>:null}
+                 <h4 className='text'>{`Welcome! ${currentUser.displayName}`}</h4>
+              </div>)
+              :null}
 
             <div className='options' >
 

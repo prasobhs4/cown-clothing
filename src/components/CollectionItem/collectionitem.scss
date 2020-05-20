@@ -4,6 +4,14 @@
     flex-direction: column;
     height: 350px;
     align-items: center;
+    position: relative;
+    &:hover{
+      opacity:0.9;
+      transition: all 1s;
+      transform: scale(1.1); 
+
+     
+    }
   
     .image {
       width: 100%;
@@ -11,6 +19,19 @@
       background-size: cover;
       background-position: center;
       margin-bottom: 5px;
+     
+    }
+    .custom-button{
+      width:80%;
+      opacity:0.5;
+      position: absolute;
+      top: 255px;
+
+      &:hover{
+        opacity:0.9;
+       
+      }
+
     }
   
     .collection-footer {
@@ -22,11 +43,13 @@
   
       .name {
         width: 90%;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
+        font-family: 'Pangolin', cursive;
       }
   
       .price {
         width: 10%;
+        font-family: 'Pangolin', cursive;
       }
     }
   }

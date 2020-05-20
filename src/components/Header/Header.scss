@@ -4,13 +4,39 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    
   
     .logo-container {
       height: 100%;
       width: 70px;
       padding: 25px;
+      position: relative;
     }
-  
+    .profile{
+      position: absolute;
+      margin-left: 150px;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    img{
+        border-radius: 25px;
+      }
+
+     img:hover{
+      //  height: 100px;
+      //  width: 100px;
+      transition: all .4s;
+      transform: scale(2.5); 
+     } 
+    .text{
+      position: relative;
+     font-family: 'Courier New', Courier, monospace;
+     margin-left: 20px;
+     margin-top: auto;
+     color: gray;
+        }
+      }
     .options {
       width: 50%;
       height: 100%;
