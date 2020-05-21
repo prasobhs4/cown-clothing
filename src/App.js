@@ -8,6 +8,7 @@ import SignInOut from './pages/SignIn-SignOut/SignIn-out';
 import { auth,createUserProfileDocument } from './firebase/Firebase.util';
 import {connect} from 'react-redux';
 import {setCurrentUser} from './components/Redux/User/userAction'
+import Checkout from './pages/Checkout/Checkout';
 
 class App extends Component{
   
@@ -45,16 +46,18 @@ componentWillUnmount(){
   }
 
   render(){
-    console.log(this.props)
+ 
   return (
     <div className="App">
       <Router>
        <Header/>
         <Switch>
+        
           <Route exact path="/" component={HomePage}/>
           <Route exact path="/signin" render={()=> this.props.currentUser.currentUser ? (<Redirect to='/' />) : (<SignInOut/>)}/>
           <Route exact path="/shop" component={Shop}/>
-          <Route path = "/" component={this.pageNotfound}/>
+          <Route exact path="/shop" component={Shop}/>
+          <Route exact path="/checkout" component={Checkout}/>
         </Switch>
       </Router>
     </div>

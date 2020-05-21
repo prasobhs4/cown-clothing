@@ -3,7 +3,6 @@ import sections from '../../Json/HOME-Sections.js'
 import MenuItem from '../menuitem/MenuItem.jsx';
 import './directory.css'
 
-console.log(sections);
 class Directory extends Component {
     constructor(props) {
         super(props)

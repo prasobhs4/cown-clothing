@@ -18,7 +18,11 @@
       flex-direction: column;
       overflow: scroll;
     }
-  
+    .empty-cart{
+      margin: auto;
+      font-size: medium;
+      font-family: 'Courier New', Courier, monospace
+    }
     button {
       margin-top: auto;
     }

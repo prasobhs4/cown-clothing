@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SHOP_DATA from '../../Json/SHOP_DATA';
 import CollectionPreview from '../../components/collectionpreview/CollectionPreview';
 
-console.log(SHOP_DATA);
+
 class Shop extends Component {
     constructor(props) {
         super(props);

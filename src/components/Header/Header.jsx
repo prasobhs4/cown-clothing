@@ -8,7 +8,7 @@ import Cart from '../Cart/Cart';
 import CartDropDown from '../Cartlist/CartDropDown';
 
 const Header = (props) => {
-  console.log(props)
+
   const {currentUser,hidden} = props;
 
   
