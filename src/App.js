@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Switch , Redirect} from 'react-router-do
 import Shop from './pages/ShopPage/Shop';
 import Header from './components/Header/Header'
 import SignInOut from './pages/SignIn-SignOut/SignIn-out';
-import { auth,createUserProfileDocument } from './firebase/Firebase.util';
+import { auth,createUserProfileDocument,createCollectionShop } from './firebase/Firebase.util';
 import {connect} from 'react-redux';
 import {setCurrentUser} from './components/Redux/User/userAction'
 import Checkout from './pages/Checkout/Checkout';
@@ -16,7 +16,8 @@ class App extends Component{
 unsubscribeFromAuth = null; 
 
  componentDidMount(){
- const {setCurrentUser} = this.props;
+ const {setCurrentUser,shop} = this.props;
+ createCollectionShop(shop);
 
   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth=>{
     if(userAuth){
@@ -46,7 +47,7 @@ componentWillUnmount(){
   }
 
   render(){
- 
+   console.log(this.props)
   return (
     <div className="App">
       <Router>
@@ -64,8 +65,9 @@ componentWillUnmount(){
   }
 }
 
-const mapStateToProps = ({user}) => ({
-currentUser:user})
+const mapStateToProps = ({user,shop}) => ({
+currentUser:user,
+shop:shop})
 
 const mapDispathToProps = (dispatch) => ({
   setCurrentUser:(user)=>dispatch(setCurrentUser(user))

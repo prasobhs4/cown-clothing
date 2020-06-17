@@ -22,6 +22,7 @@ import 'firebase/auth';
   const userref = firestore.doc(`users/${userAuth.uid}`)
   const snapShot = await userref.get();
 
+
   if(!snapShot.exists)
   {
     
@@ -53,6 +54,18 @@ import 'firebase/auth';
 
  export const auth= firebase.auth();
  export const firestore = firebase.firestore();
+
+ export const createCollectionShop = async (shopdata) => {
+   const shopFetch = firestore.collection('Shop');
+   const batch = firestore.batch();
+  shopdata.forEach(shop => {
+    const shopItems = shopFetch.doc();
+    batch.set(shopItems,shop)
+  })
+
+  return await batch.commit();
+
+ }
 
  const provider = new firebase.auth.GoogleAuthProvider();
  provider.setCustomParameters({prompt:'select_account'});
