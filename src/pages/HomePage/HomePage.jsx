@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomePage.scss'
 import Directory from '../../components/directory/Directory';
-
+import {HomePageStyle} from './homePageStyle';
 
 
 
@@ -11,11 +11,11 @@ const HomePage = () => {
 
 
     return (
-      <div className='homepage'>
+      <HomePageStyle>
         <div className='directory-menu'>
             <Directory/>
         </div>
-      </div>
+      </HomePageStyle>
 
     )
 

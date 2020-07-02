@@ -1,69 +1,68 @@
-import React from 'react'
-import './Header.scss'
-import {Link} from 'react-router-dom'
-import {ReactComponent as Logo} from '../../images/crown.svg';
-import { auth } from '../../firebase/Firebase.util';
-import {connect} from 'react-redux';
-import Cart from '../Cart/Cart';
-import CartDropDown from '../Cartlist/CartDropDown';
+import React from "react";
+import "./Header.scss";
+import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../images/crown.svg";
+import { auth } from "../../firebase/Firebase.util";
+import { connect } from "react-redux";
+import Cart from "../Cart/Cart";
+import CartDropDown from "../Cartlist/CartDropDown";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../Redux/User/userSelection";
+import { selectCartHidden } from "../Redux/Cart/cartSelector";
+import {HeaderContainer,LogoContainer,OptionsContainer,OptionsLink,OptionStyle} from './HeaderStyle';
 
 const Header = (props) => {
+  const { currentUser, hidden } = props;
 
-  const {currentUser,hidden} = props;
-
-  
-    return (
-        <div className='header'>
-            <Link to="/" className='logo-container'>
-
-              <Logo className='logo' />
-                
-            </Link>
-            
-            {currentUser ?
-            (
-              <div className='profile'>
-                {currentUser.photoURL?
-                 <img src={currentUser.photoURL} alt="ProfilePic" width="30" height="30"/>:null}
-                 <h4 className='text'>{`Welcome! ${currentUser.displayName}`}</h4>
-              </div>)
-              :null}
-
-            <div className='options' >
-
-            <Link to="/shop" className='option'>
-
-              SHOP
-                
-            </Link>
-
-            <Link to="/shop" className='option'>
-
-             CONTACT
-                
-            </Link>
-            
-            {currentUser ?
-            (<div className='option' 
-            onClick={() => auth.signOut()}> SIGN OUT  </div>)
-            :
-            (<Link to="/signin" className='option' >
-
-            SIGNIN
-               
-           </Link>)}
-           <Cart />
-            </div>
-            {hidden ?
-            null : <CartDropDown />}
-        </div>
-    )
-}
-
-const mapStateToProps = ({cart,user}) => {
   return (
-  {currentUser:user.currentUser,
-  hidden:cart.hidden}) }
+    <HeaderContainer>
+      <LogoContainer to="/" >
+        <Logo className="logo" />
+      </LogoContainer>
 
+      {currentUser ? (
+        <div className="profile">
+          {currentUser.photoURL ? (
+            <img
+              src={currentUser.photoURL}
+              alt="ProfilePic"
+              width="30"
+              height="30"
+            />
+          ) : null}
+          <h4 className="text">{`Welcome! ${currentUser.displayName}`}</h4>
+        </div>
+      ) : null}
 
-export default connect(mapStateToProps)(Header)
+      <OptionsContainer>
+        <OptionsLink to="/shop" >
+          SHOP
+        </OptionsLink>
+
+        <OptionsLink to="/shop" >
+          CONTACT
+        </OptionsLink>
+
+        {currentUser ? (
+          <OptionStyle  onClick={() => auth.signOut()}>
+            {" "}
+            SIGN OUT{" "}
+          </OptionStyle>
+        ) : (
+          <OptionsLink to="/signin" >
+            SIGNIN
+          </OptionsLink>
+        )}
+        <Cart />
+      </OptionsContainer>
+      {hidden ? null : <CartDropDown />}
+    </HeaderContainer>
+  );
+};
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
+});
+
+export default connect(mapStateToProps)(Header);
