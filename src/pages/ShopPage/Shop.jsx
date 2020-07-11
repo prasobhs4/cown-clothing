@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import CollectionOverview from "../../components/collectionOverview/CollectionOverview";
 import SpinnerComponent from "../../components/Spinner/SpinnerComponent";
 import { updateCollections } from "../../components/Redux/Shop/shopAction";
+import { fetchCollectionStart } from "../../components/Redux/Shop/shopAction";
 const CollectionOverviewwithSpinner = SpinnerComponent(CollectionOverview);
 const CollectionswithSpinner = SpinnerComponent(Collections);
 
@@ -13,8 +14,10 @@ class Shop extends React.Component {
     isLoading: true,
   };
   componentDidMount() {
-    const { updateCollections } = this.props;
-    updateCollections();
+    console.log(this.props);
+    const { fetchCollectionStart } = this.props;
+
+    fetchCollectionStart();
   }
 
   render() {
@@ -50,4 +53,8 @@ const mapStateToProps = ({ isCollectionsLoading }) => ({
   isCollectionsLoading,
 });
 
-export default connect(mapStateToProps, { updateCollections })(Shop);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCollectionStart: () => dispatch(fetchCollectionStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

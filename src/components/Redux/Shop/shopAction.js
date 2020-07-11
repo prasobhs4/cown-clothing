@@ -4,16 +4,16 @@ import {
   convertShopSnapshotToMap,
 } from "../../../firebase/Firebase.util";
 
-const fetchCollectionStart = () => ({
+export const fetchCollectionStart = () => ({
   type: shopType.FETCH_COLLECTIONS_START,
 });
 
-const fetchCollectionSuccess = (collection) => ({
+export const fetchCollectionSuccess = (collection) => ({
   type: shopType.FETCH_COLLECTIONS_SUCCESS,
   payload: collection,
 });
 
-const fetchCollectionError = (error) => ({
+export const fetchCollectionError = (error) => ({
   type: shopType.FETCH_COLLECTIONS_ERROR,
   payload: error,
 });
@@ -29,10 +29,3 @@ export const updateCollections = () => async (dispatch) => {
     })
     .catch((error) => dispatch(fetchCollectionError(error.message)));
 };
-
-// export const updateCollection = (data) => {
-//   return {
-//     type: shopType.UPDATE_COLLECTION,
-//     payload: data,
-//   };
-// };

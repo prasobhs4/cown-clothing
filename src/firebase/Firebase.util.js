@@ -22,6 +22,9 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   if (!snapShot.exists) {
     const { displayName, email, photoURL } = userAuth;
+    if (!displayName) {
+      displayName = additionalData;
+    }
     const createdAt = new Date();
     try {
       await userref.set({
@@ -74,9 +77,18 @@ export const convertShopSnapshotToMap = (shopSnapshot) => {
   }, {});
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+export const getUserAuthChange = () => {
+  return new Promise((res, rej) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      res(userAuth);
+    }, rej);
+  });
+};
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

@@ -23,20 +23,21 @@ class App extends Component {
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
+    setCurrentUser();
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
+    //     userRef.onSnapshot((snapShot) => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data(),
+    //       });
+    //     });
+    //   } else {
+    //     setCurrentUser(userAuth);
+    //   }
+    // });
   }
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -79,7 +80,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispathToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setCurrentUser: () => dispatch(setCurrentUser()),
 });
 
 export default connect(mapStateToProps, mapDispathToProps)(App);
