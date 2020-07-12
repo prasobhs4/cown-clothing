@@ -35,7 +35,9 @@ export function* fetchCurrentUserStart() {
 export function* fetchCurrentEmailForUser({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
+    console.log(user);
     const userRef = yield call(createUserProfileDocument, user);
+    console.log(userRef);
     const userSnapshot = yield userRef.get();
     yield put(
       fetchEmailSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
@@ -85,8 +87,8 @@ export function* signUpUser({ payload: { email, password, displayName } }) {
   try {
     yield console.log(email, password, displayName);
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    yield console.log(user);
-    const userRef = yield call(createUserProfileDocument, user, displayName);
+    const user1 = { ...user, displayName: displayName };
+    const userRef = yield call(createUserProfileDocument, user1);
     const userSnapshot = yield userRef.get();
     yield put(
       fetchEmailSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
